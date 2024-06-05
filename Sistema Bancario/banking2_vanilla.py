@@ -126,7 +126,7 @@ def user_exist(current_ID, current_password):
 
 def actions_menu(current_user_id):
     while True:
-        print("\n=== Menu do Banco ===")
+        print("\n=== Menu ===")
         print("1. Verificar Extrato")
         print("2. Fazer saque")
         print("3. Fazer depósito")
