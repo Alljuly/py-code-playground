@@ -12,7 +12,7 @@ account_list = [
         "statement": 10,
         "balance": [],
         "MAX_VALUE": 500,
-        "count": 3
+        "count": 0
     }
 ]
 
@@ -21,17 +21,17 @@ def withdrawal(current_ID, current_value):
     for a in account_list:
         if a["ID"] == current_ID:
            if a["count"] < 3:
-               if current_value and current_value <= a["statement"] and current_value <= a["MAX_VALUE"]:
+               if current_value <= a["statement"] and current_value <= a["MAX_VALUE"]:
                    print(f"Sacar {current_value:.2f}")
                    a["statement"] -= current_value
                    a["balance"].append(f"- R${current_value:.2f}")
                    a["count"] += 1
-                   
+                   return f"Saldo atual: R${a['statement']:.2f}"
                else:
                    print("Algo está errado. Verifique o saldo da conta ou tente novamente em alguns minutos.")
            else:
                print("Limite diario de saques ultrapassado")
-    return f"Saldo atual: R${a['statement']:.2f}"
+
 
 
 def deposit(current_ID, current_value):
@@ -50,20 +50,20 @@ def get_statement(current_ID):
     for a in account_list:
         if a["ID"] == current_ID:
             return f"Saldo Atual: {a['statement']:.2f}"
-    return "Algo deu errado, tente novamente em alguns minutos"
+
 
 
 def get_balance(current_ID):
-    print("ACCOUNT STATEMENT")
     for a in account_list:
         if a["ID"] == current_ID:
+            print("ACCOUNT STATEMENT")
             if a["balance"]:
                 for i in a["balance"]:
                     print(i)
             else:
                 print("Nenhuma transacao encontrada")
             return
-        print("Algo deu errado, tente novamente em alguns minutos")
+
 
 
 def create_user():
@@ -115,14 +115,14 @@ def create_account(current_ID):
 
 
 def user_exist(current_ID, current_password):
-    for user in users_list:    
-        if user["ID"] == current_ID:
+    for user in users_list:
+        if user["ID"] is current_ID:
             if user["password"] == current_password:
                 user_id = user["ID"]
-                return user_id
+                return int(user_id)
             else:
-                print("As credenciais não conferem")
-    print("Usuario nao existe")
+                return "As credenciais não conferem"
+    return "Usuario nao existe"
 
 def actions_menu(current_user_id):
     while True:
@@ -165,10 +165,13 @@ def user_login():
 
         if action == 1:
             user_id = input("Seu CPF: ")
-            password = input("Informe sua senha: ")
+            password = int(input("Informe sua senha: "))
 
             token = user_exist(user_id, password)
-            actions_menu(token)
+            if token != "Erro":
+                actions_menu(str(token))
+            else:
+                print("Tente novamente")
 
         elif action == 2:
             create_user()

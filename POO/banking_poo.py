@@ -1,6 +1,17 @@
 import json
+import os
 
-account_list = json.loads("./accounts.json")
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+account_path = os.path.join(current_dir,'accounts.json')
+users_path = os.path.join(current_dir,'users.json')
+
+with open(account_path, 'r') as acc:
+    account_list = json.load(acc)
+
+with open(users_path, 'r') as us:
+    users_list = json.load(us)
+
 
 def withdrawal(current_ID, current_value):
     for a in account_list:
@@ -165,3 +176,4 @@ def user_login():
 
 
 user_login()
+

@@ -1,5 +1,4 @@
-{
-  "accounts" : [
+[
     {
     "ID": "0",
     "statement": 10,
@@ -7,5 +6,5 @@
     "MAX_VALUE": 500,
     "count": 3
   }
-  ]
-}
+
+]
