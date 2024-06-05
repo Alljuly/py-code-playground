@@ -66,9 +66,9 @@ def get_balance(current_id):
 
 def create_user():
     print(" ==== Informe seus dados pessoais ====")
-    new_username = input("Seu nome de usuario, essa sera a forma que iremos nos referir a você:")
-    new_id = input("Seu CPF:")
-    new_password = int(input("Informe sua senha de acesso, apenas numeros:"))
+    new_username = input("Seu nome de usuario, essa sera a forma que iremos nos referir a você: ")
+    new_id = input("Seu CPF: ")
+    new_password = int(input("Informe sua senha de acesso, apenas numeros: "))
 
     for u in users_list:
         if u["ID"] == new_id:
@@ -77,11 +77,14 @@ def create_user():
 
     new_user = User(new_username, new_id, new_password)
     users_list.append(new_user.to_dict())
+
+    create_account(new_id)
+
     with open(users_path, 'w') as u:
         json.dump(users_list, u, indent=4)
 
-    print("Usuario Cadastrado. Aceite os termos para finalizar sua conta.")
-    create_account(new_id)
+    print("Usuario Cadastrado.")
+
 
 
 def create_account(current_id):
@@ -93,21 +96,25 @@ def create_account(current_id):
     print(f"Saldo inicial {new_statement:.2f}")
     print(f"Limite de saques por dia {new_count + 3} no valor de R${value:.2f}")
 
-    confirm = input("Y/N")
+    confirm = input("Y/N ")
     if confirm.upper() == "Y":
         new_account = Account(current_id, new_statement, value, new_balance, new_count)
         account_list.append(new_account.to_dict())
+
         with open(account_path, 'w') as ac:
             json.dump(account_list, ac, indent=4)
+
         print("Conta finalizada com sucesso")
 
-    else:
+    """else:
         print("Essa opção ainda não será implementada, criamos sua conta de qualquer forma")
         new_account = Account(current_id, new_statement, value, new_balance, new_count)
         account_list.append(new_account.to_dict())
 
         with open(account_path, 'w') as ac:
             json.dump(account_list, ac, indent=4)
+        print("Conta finalizada com sucesso")
+    """
     return
 
 
