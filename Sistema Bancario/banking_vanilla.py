@@ -9,7 +9,7 @@ def withdrawal(current_value, current_statement):
         if current_value and current_value <= current_statement and current_value <= MAX_VALUE:
             print(f"Sacar {current_value:.2f}")
             current_statement -= current_value
-            balance.append(f"- {current_value:.2f}")
+            balance.append(f"- R${current_value:.2f}")
         else:
             print("Algo está errado. Verifique o saldo da conta ou tente novamente em alguns minutos.")
     else:
@@ -21,7 +21,7 @@ def deposit(current_value, current_statement):
     if current_value > 0:
         print(f"Depositar {current_value:.2f}")
         current_statement += current_value
-        balance.append(f"+ {current_value:.2f}")
+        balance.append(f"+ R${current_value:.2f}")
     return current_statement
 
 
@@ -35,10 +35,19 @@ def get_balance(current_balance):
         print(n)
 
 
+def create_user(user):
+    try:
+        
+    except:
+
+
+def create_account():
+
+
 
 def actions_menu():
     while True:
-        print("\n=== Menu do Banco ===")
+        print("\n=== Menu ===")
         print("1. Verificar Extrato")
         print("2. Fazer saque")
         print("3. Fazer depósito")
