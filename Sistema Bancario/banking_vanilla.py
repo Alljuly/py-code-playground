@@ -35,16 +35,6 @@ def get_balance(current_balance):
         print(n)
 
 
-def create_user(user):
-    try:
-        
-    except:
-
-
-def create_account():
-
-
-
 def actions_menu():
     while True:
         print("\n=== Menu ===")
