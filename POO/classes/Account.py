@@ -20,7 +20,12 @@ class Account:
     def __str__(self) -> str:
         return f"{self.ID} - {self.statement} - {self.balance} - {self.MAX_VALUE} - {self.count}"
 
+    def to_dict(self):
+        return {
+            "ID": self.ID,
+            "statement": self.statement,
+            "balance": self.balance,
+            "MAX_VALUE": self.MAX_VALUE,
+            "count": self.count
+        }
 
-
-
-print(account)

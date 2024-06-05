@@ -1,21 +1,23 @@
 import json
 import os
+from classes.User import User
+from classes.Account import Account
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-account_path = os.path.join(current_dir,'accounts.json')
-users_path = os.path.join(current_dir,'users.json')
+account_path = os.path.join(current_dir, 'accounts.json')
+users_path = os.path.join(current_dir, 'users.json')
 
-with open(account_path, 'r') as acc:
-    account_list = json.load(acc)
+with open(account_path, 'r') as f:
+    account_list = json.load(f)
 
-with open(users_path, 'r') as us:
-    users_list = json.load(us)
+with open(users_path, 'r') as f:
+    users_list = json.load(f)
 
 
-def withdrawal(current_ID, current_value):
+def withdrawal(current_id, current_value):
     for a in account_list:
-        if a["ID"] == current_ID:
+        if a["ID"] == current_id:
             if a["count"] < 3:
                 if current_value and current_value <= a["statement"] and current_value <= a["MAX_VALUE"]:
                     print(f"Sacar {current_value:.2f}")
@@ -27,13 +29,13 @@ def withdrawal(current_ID, current_value):
                     print("Algo está errado. Verifique o saldo da conta ou tente novamente em alguns minutos.")
             else:
                 print("Limite diario de saques ultrapassado")
-    return f"Saldo atual: R${a['statement']:.2f}"
+        return f"Saldo atual: R${a['statement']:.2f}"
 
 
-def deposit(current_ID, current_value):
+def deposit(current_id, current_value):
     if current_value > 0:
         for a in account_list:
-            if a["ID"] == current_ID:
+            if a["ID"] == current_id:
                 a["statement"] += current_value
                 print(f"Deposito efetuado {current_value:.2f}")
                 a["balance"].append(f"+ R${current_value:.2f}")
@@ -42,17 +44,17 @@ def deposit(current_ID, current_value):
         return "Valor invalido"
 
 
-def get_statement(current_ID):
+def get_statement(current_id):
     for a in account_list:
-        if a["ID"] == current_ID:
+        if a["ID"] == current_id:
             return f"Saldo Atual: {a['statement']:.2f}"
     return "Algo deu errado, tente novamente em alguns minutos"
 
 
-def get_balance(current_ID):
+def get_balance(current_id):
     print("ACCOUNT STATEMENT")
     for a in account_list:
-        if a["ID"] == current_ID:
+        if a["ID"] == current_id:
             if a["balance"]:
                 for i in a["balance"]:
                     print(i)
@@ -73,52 +75,51 @@ def create_user():
             print("Esse CPF já esta cadastrado, entre na sua conta ou procure uma agencia.")
             return
 
-    users_list.append(
-        {
-            "name": new_username,
-            "ID": new_id,
-            "password": new_password
-        })
+    new_user = User(new_username, new_id, new_password)
+    users_list.append(new_user.to_dict())
+    with open(users_path, 'w') as u:
+        json.dump(users_list, u, indent=4)
 
     print("Usuario Cadastrado. Aceite os termos para finalizar sua conta.")
     create_account(new_id)
 
 
-def create_account(current_ID):
+def create_account(current_id):
     new_statement = 0.0
     value = 500
     new_count = 0
-    print(f"Identificador {current_ID}")
+    new_balance = []
+    print(f"Identificador {current_id}")
     print(f"Saldo inicial {new_statement:.2f}")
     print(f"Limite de saques por dia {new_count + 3} no valor de R${value:.2f}")
 
     confirm = input("Y/N")
     if confirm.upper() == "Y":
-        account_list.append(
-            {
-                "ID": current_ID,
-                "statement": new_statement,
-                "balance": [],
-                "MAX_VALUE": value,
-                "count": new_count
-            }
-        )
+        new_account = Account(current_id, new_statement, value, new_balance, new_count)
+        account_list.append(new_account.to_dict())
+        with open(account_path, 'w') as ac:
+            json.dump(account_list, ac, indent=4)
         print("Conta finalizada com sucesso")
 
     else:
         print("Essa opção ainda não será implementada, criamos sua conta de qualquer forma")
+        new_account = Account(current_id, new_statement, value, new_balance, new_count)
+        account_list.append(new_account.to_dict())
+
+        with open(account_path, 'w') as ac:
+            json.dump(account_list, ac, indent=4)
     return
 
 
-def user_exist(current_ID, current_password):
+def user_exist(current_id, current_password):
     for user in users_list:
-        if user["ID"] == current_ID:
+        if user["ID"] is current_id:
             if user["password"] == current_password:
                 user_id = user["ID"]
                 return user_id
             else:
-                print("As credenciais não conferem")
-    print("Usuario nao existe")
+                return "As credenciais não conferem"
+    return None
 
 
 def actions_menu(current_user_id):
@@ -165,7 +166,8 @@ def user_login():
             password = input("Informe sua senha: ")
 
             token = user_exist(user_id, password)
-            actions_menu(token)
+            if token:
+                actions_menu(token)
 
         elif action == 2:
             create_user()
@@ -176,4 +178,3 @@ def user_login():
 
 
 user_login()
-

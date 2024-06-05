@@ -114,12 +114,12 @@ def create_account(current_ID):
     return
 
 
-def user_exist(current_ID, current_password):
+def user_exist(current_id, current_password):
     for user in users_list:
-        if user["ID"] is current_ID:
+        if user["ID"] is current_id:
             if user["password"] == current_password:
                 user_id = user["ID"]
-                return int(user_id)
+                return user_id
             else:
                 return "As credenciais não conferem"
     return "Usuario nao existe"
@@ -169,7 +169,7 @@ def user_login():
 
             token = user_exist(user_id, password)
             if token != "Erro":
-                actions_menu(str(token))
+                actions_menu(token)
             else:
                 print("Tente novamente")
 

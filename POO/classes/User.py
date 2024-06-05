@@ -8,11 +8,10 @@ class User:
     def __str__(self) -> str:
         return f"{self.name} - {self.ID} - {self.password}"
 
-
-#def get_users(*objs):
-#    for obj in objs:
-#        print(obj)
-#
-
-a = User("Alice", "5656", 4542)
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "ID": self.ID,
+            "password": self.password
+        }
 
