@@ -1,13 +1,3 @@
-account_list = [
-    {
-        "ID": "0",
-        "statement": 10,
-        "balance": [],
-        "MAX_VALUE": 500,
-        "count": 3
-    }
-]
-
 class Account:
 
     def __init__(self, ID, statement, balance, MAX_VALUE, count):
