@@ -1,21 +1,21 @@
 class Account:
 
-    def __init__(self, ID, statement, balance, MAX_VALUE, count):
-        self.ID = ID
+    def __init__(self, cpf, statement, balance, max_value, count):
+        self.cpf = cpf
         self.statement = statement
         self.balance = balance
-        self.MAX_VALUE = MAX_VALUE
+        self.max_value = max_value
         self.count = count
 
     def __str__(self) -> str:
-        return f"{self.ID} - {self.statement} - {self.balance} - {self.MAX_VALUE} - {self.count}"
+        return f"{self.cpf} - {self.statement} - {self.balance} - {self.max_value} - {self.count}"
 
     def to_dict(self):
         return {
-            "ID": self.ID,
+            "cpf": self.cpf,
             "statement": self.statement,
             "balance": self.balance,
-            "MAX_VALUE": self.MAX_VALUE,
+            "max_value": self.max_value,
             "count": self.count
         }
 
