@@ -1,6 +1,8 @@
 [
     {
         "cpf" : "0",
-        "transaction" : []
+        "value": 10,
+        "date": "datetime.date(2019, 12, 4)",
+        "type": "wd"
     }
 ]
