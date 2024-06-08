@@ -9,8 +9,8 @@
     {
         "ID": "715",
         "statement": 0.0,
-        "balance": 500,
-        "MAX_VALUE": [],
+        "balance": [],
+        "MAX_VALUE": 500,
         "count": 0
     }
 ]

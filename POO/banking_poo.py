@@ -66,9 +66,9 @@ def get_balance(current_id):
 
 def create_user():
     print(" ==== Informe seus dados pessoais ====")
-    new_username = input("Seu nome de usuario, essa sera a forma que iremos nos referir a você: ")
+    new_username = input("Seu nome de usuario: ")
     new_id = input("Seu CPF: ")
-    new_password = int(input("Informe sua senha de acesso, apenas numeros: "))
+    new_password = int(input("Senha numerica: "))
 
     for u in users_list:
         if u["ID"] == new_id:
@@ -98,13 +98,13 @@ def create_account(current_id):
 
     confirm = input("Y/N ")
     if confirm.upper() == "Y":
-        new_account = Account(current_id, new_statement, value, new_balance, new_count)
+        new_account = Account(current_id, new_statement, new_balance, value, new_count)
         account_list.append(new_account.to_dict())
 
         with open(account_path, 'w') as ac:
             json.dump(account_list, ac, indent=4)
 
-        print("Conta finalizada com sucesso")
+        print("Conta finalizada com sucesso.")
 
     """else:
         print("Essa opção ainda não será implementada, criamos sua conta de qualquer forma")
@@ -120,7 +120,7 @@ def create_account(current_id):
 
 def user_exist(current_id, current_password):
     for user in users_list:
-        if user["ID"] is current_id:
+        if user["ID"] == current_id:
             if user["password"] == current_password:
                 user_id = user["ID"]
                 return user_id
