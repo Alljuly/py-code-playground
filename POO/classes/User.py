@@ -1,17 +1,16 @@
 class User:
 
-    def __init__(self, name, ID, password):
+    def __init__(self, name, cpf, password):
         self.name = name
-        self.ID = ID
+        self.cpf = cpf
         self.password = password
 
     def __str__(self) -> str:
-        return f"{self.name} - {self.ID} - {self.password}"
+        return f"{self.name} - {self.cpf} - {self.password}"
 
     def to_dict(self):
         return {
             "name": self.name,
-            "ID": self.ID,
+            "cpf": self.cpf,
             "password": self.password
         }
-
