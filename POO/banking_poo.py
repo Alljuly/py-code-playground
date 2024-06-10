@@ -6,8 +6,8 @@ from datetime import date as dt
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-account_path = os.path.join(current_dir, 'accounts.json')
-users_path = os.path.join(current_dir, 'users.json')
+account_path = os.path.join(current_dir, '/jsons/accounts.json')
+users_path = os.path.join(current_dir, '/jsons/users.json')
 
 with open(account_path, 'r') as f:
     account_list = json.load(f)
