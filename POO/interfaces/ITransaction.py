@@ -10,7 +10,3 @@ class ITransaction(ABC):
     @abstractmethod
     def register(account):
         pass
-
-
-
-

@@ -2,6 +2,7 @@ import json
 import os
 from classes.User import User
 from classes.Account import Account
+from datetime import date as dt
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -17,13 +18,16 @@ with open(users_path, 'r') as f:
 
 def withdrawal(current_id, current_value):
     for a in account_list:
-        if a["ID"] == current_id:
-            if a["count"] < 3:
-                if current_value and current_value <= a["statement"] and current_value <= a["MAX_VALUE"]:
+        if a["cpf"] == current_id:
+            if limit_wd(current_id):
+                if current_value and current_value <= a["statement"] and current_value <= a["max_value"]:
                     print(f"Sacar {current_value:.2f}")
                     a["statement"] -= current_value
-                    a["balance"].append(f"- R${current_value:.2f}")
-                    a["count"] += 1
+                    date = dt.today()
+                    transaction_type = "wd"
+                    value = f"- R${current_value}"
+                    balance = {"value": value, "date": date, "type": transaction_type}
+                    a["balance"].append(balance)
 
                 else:
                     print("Algo está errado. Verifique o saldo da conta ou tente novamente em alguns minutos.")
@@ -31,14 +35,32 @@ def withdrawal(current_id, current_value):
                 print("Limite diario de saques ultrapassado")
         return f"Saldo atual: R${a['statement']:.2f}"
 
+def limit_wd(current_id):
+    count = 0
+    today = dt.today()
+    for a in account_list:
+        if a["cpf"] == current_id:
+            balance = a["balance"]
+            for t in balance:
+                if t["type"] == "wd":
+                    if t["date"] == today:
+                        count += 1
+                    if count == 3:
+                        return False
+    return True
+
 
 def deposit(current_id, current_value):
     if current_value > 0:
         for a in account_list:
-            if a["ID"] == current_id:
+            if a["cpf"] == current_id:
+                date = dt.today()
+                transaction_type = "deposit"
+                value = f"+ R${current_value}"
+                transaction = {"value": value, "date": date, "type": transaction_type}
                 a["statement"] += current_value
                 print(f"Deposito efetuado {current_value:.2f}")
-                a["balance"].append(f"+ R${current_value:.2f}")
+                a["balance"].append(transaction)
                 return f"Saldo atual {a['statement']:.2f}"
     else:
         return "Valor invalido"
@@ -46,39 +68,45 @@ def deposit(current_id, current_value):
 
 def get_statement(current_id):
     for a in account_list:
-        if a["ID"] == current_id:
+        if a["cpf"] == current_id:
             return f"Saldo Atual: {a['statement']:.2f}"
     return "Algo deu errado, tente novamente em alguns minutos"
 
 
 def get_balance(current_id):
-    print("ACCOUNT STATEMENT")
+    
     for a in account_list:
-        if a["ID"] == current_id:
+         if a["cpf"] == current_id:
+            print("ACCOUNT STATEMENT")
             if a["balance"]:
-                for i in a["balance"]:
-                    print(i)
+                 print(a["balance"])
             else:
                 print("Nenhuma transacao encontrada")
             return
-        print("Algo deu errado, tente novamente em alguns minutos")
+    print("Algo deu errado, tente novamente em alguns minutos")
+
+
+def user_exist(current_cpf):
+    for u in users_list:
+        if u["cpf"] == current_cpf:
+            return True
+    return False
 
 
 def create_user():
     print(" ==== Informe seus dados pessoais ====")
     new_username = input("Seu nome de usuario: ")
-    new_id = input("Seu CPF: ")
+    new_cpf = input("Seu CPF: ")
     new_password = int(input("Senha numerica: "))
 
-    for u in users_list:
-        if u["ID"] == new_id:
-            print("Esse CPF já esta cadastrado, entre na sua conta ou procure uma agencia.")
-            return
-
-    new_user = User(new_username, new_id, new_password)
+    if user_exist(new_cpf):
+        print("Esse CPF já esta cadastrado, entre na sua conta ou procure uma agencia.")
+        return
+    
+    new_user = User(new_username, new_cpf, new_password)
     users_list.append(new_user.to_dict())
 
-    create_account(new_id)
+    create_account(new_cpf)
 
     with open(users_path, 'w') as u:
         json.dump(users_list, u, indent=4)
@@ -118,15 +146,16 @@ def create_account(current_id):
     return
 
 
-def user_exist(current_id, current_password):
+def user_login(current_id, current_password):
     for user in users_list:
-        if user["ID"] == current_id:
-            if user["password"] == current_password:
-                user_id = user["ID"]
+        if user["cpf"] == current_id:
+            if user["password"] == int(current_password):
+                user_id = user["cpf"]
                 return user_id
             else:
-                return "As credenciais não conferem"
-    return None
+                print("As credenciais não conferem")
+                return None
+    print("Usuario nao encontrado")
 
 
 def actions_menu(current_user_id):
@@ -159,7 +188,7 @@ def actions_menu(current_user_id):
             print("Opcao invalida")
 
 
-def user_login():
+def user_menu():
     while True:
         print("\n=== NEWBANK ===")
         print("1. Entrar na sua conta.")
@@ -172,7 +201,7 @@ def user_login():
             user_id = input("Seu CPF: ")
             password = input("Informe sua senha: ")
 
-            token = user_exist(user_id, password)
+            token = user_login(user_id, password)
             if token:
                 actions_menu(token)
 
@@ -184,4 +213,4 @@ def user_login():
             print("Opcao invalida")
 
 
-user_login()
+user_menu()
