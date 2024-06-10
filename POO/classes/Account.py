@@ -1,5 +1,7 @@
-class Account:
+#from abc import ABC?
 
+class Account: 
+    """(ABC)?"""
     def __init__(self, cpf, statement, balance, max_value, count):
         self.cpf = cpf
         self.statement = statement
@@ -21,8 +23,7 @@ class Account:
             "count": self.count
         }
     
-
-    #Novo __init__
+#Novo __init__
     #O cliente é apenas um numero de cpf
     """
     def __init__(self, data):
@@ -32,7 +33,7 @@ class Account:
         self.client = data.get('client')
     """
 
-    #Novo to_dict
+#Novo to_dict
     """
     def to_dict(self):
         return {
@@ -44,8 +45,9 @@ class Account:
 
     """
 
-    #Novo __str__
+#Novo __str__
     """
     def __str__(self) -> str:
             return f"{self.number_account} - {self.agency} - {self.statement} - {self.client}"
     """
+
