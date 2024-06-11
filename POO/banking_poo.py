@@ -9,6 +9,17 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 account_path = os.path.join(current_dir, '/jsons/accounts.json')
 users_path = os.path.join(current_dir, '/jsons/users.json')
 
+
+def read_json(path):
+    with open(path, 'r') as f:
+        return json.load(f)
+
+
+def write_json(path, list):
+    with open(path, 'w') as f:
+        json.dump(list, f, indent=4)
+
+
 with open(account_path, 'r') as f:
     account_list = json.load(f)
 

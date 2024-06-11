@@ -2,7 +2,7 @@ from transactions import WithDraw, Deposit
 from .. import Account 
 
 
-class CurrentAccount(Account):
+class CheckingAccount(Account):
     def __init__(self, limit, wd_limit, account):
         super().__init__(account)
         self.limit = limit
@@ -21,4 +21,19 @@ class CurrentAccount(Account):
         current_account_statement = super().statement
 
         deposit.register(current_account_statement)
+
+    
+    def limit_wd(self, balance, date):
+        count = 0
+        for t in balance:
+            if t["type"] == "wd":
+                if t["date"] == date:
+                    count += 1
+                if count == self.wd_limit:
+                    return False
+        return True
+    
+
+    def limit_max(self, value):
+       return False if value > self.limit else True
     
