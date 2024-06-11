@@ -1,20 +1,18 @@
 import json
-import os
-from classes.users import Client
+from classes.users.Client import Client
 from classes.accounts.CheckingAccount import CheckingAccount
-from datetime import date as dt
-from typing import Dict, Union
+from typing import Union
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-
-account_path = os.path.join(current_dir, '/jsons/accounts.json')
-users_path = os.path.join(current_dir, '/jsons/users.json')
-transactions_path = os.path.join(current_dir, '/jsons/transactions.json')
+account_path = '/workspaces/py-code-playground/POO/jsons/accounts.json'
+users_path = '/workspaces/py-code-playground/POO/jsons/users.json'
+transactions_path = '/workspaces/py-code-playground/POO/jsons/transactions.json'
 
 
 def read_json(path):
     with open(path, 'r') as f:
         return json.load(f)
+
+
 users_list = read_json(users_path)
 account_list = read_json(account_path)
 transactions_list = read_json(transactions_path)
@@ -24,7 +22,7 @@ def write_json(path, list):
         json.dump(list, f, indent=4)
 
 
-def convert_json_to_account(obj: Dict[str]) -> CheckingAccount:
+def convert_json_to_account(obj) -> CheckingAccount:
  
     data = {
     "client" : obj["client"],

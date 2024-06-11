@@ -1,10 +1,10 @@
-from transactions import WithDraw, Deposit 
-from . import Account 
+from ..transactions.Transaction import WithDraw, Deposit 
+from .Account import Account 
 from datetime import date as dt
 from typing import Dict
 
 class CheckingAccount(Account):
-    def __init__(self, limit, wd_limit, account):
+    def __init__(self, limit, wd_limit, account: Dict[str, any]):
         super().__init__(account)
         self.limit = limit
         self.wd_limit = wd_limit
@@ -26,7 +26,7 @@ class CheckingAccount(Account):
         return statement
 
 
-    def new_transaction(self, type_transaction, value) -> Dict[str]:
+    def new_transaction(self, type_transaction, value):
         if type_transaction == "wd":
                transaction = WithDraw(value)
                transaction.register(self)

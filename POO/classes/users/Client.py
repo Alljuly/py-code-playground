@@ -1,7 +1,8 @@
-import Person
+from .Person import Person
 from ..accounts.CheckingAccount import CheckingAccount
 
 class Client(Person):
+
 
     def __init__(self, name, cpf, date, address):
         super().__init__(name, cpf, date)
