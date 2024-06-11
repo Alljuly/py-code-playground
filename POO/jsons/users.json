@@ -1,22 +1,18 @@
 [
     {
         "name": "Teste",
-        "cpf": "0",
-        "password": 5021
+        "cpf": "0"
     },
     {
         "name": "Alice",
-        "cpf": "715",
-        "password": 0
+        "cpf": "715"
     },
     {
         "name": "teste2",
-        "cpf": "654",
-        "password": 123
+        "cpf": "654"
     },
     {
         "name": "teste saques",
-        "cpf": "456",
-        "password": 123
+        "cpf": "456"
     }
 ]

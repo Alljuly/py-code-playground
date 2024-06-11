@@ -8,6 +8,7 @@ class Deposit(ITransaction):
 
     def register(self, account):
         account.statement += self.value
+        return account.statement
 
 
 class WithDraw(ITransaction):

@@ -1,30 +1,9 @@
 [
     {
-        "cpf": "0",
-        "statement": 10,
-        "balance": [],
-        "max_value": 500.0,
-        "count": 0
-    },
-    {
-        "cpf": "715",
-        "statement": 0.0,
-        "balance": [],
-        "max_value": 500.0,
-        "count": 0
-    },
-    {
-        "cpf": "654",
-        "statement": 0.0,
-        "balance": [],
-        "max_value": 500.0,
-        "count": 0
-    },
-    {
-        "cpf": "456",
-        "statement": 0.0,
-        "balance": [],
-        "max_value": 500,
-        "count": 0
+        "client" : "26541",
+        "number_account" : 26265,
+        "agency" : 3265,
+        "statement" : 10,
+        "password" : 12345
     }
 ]

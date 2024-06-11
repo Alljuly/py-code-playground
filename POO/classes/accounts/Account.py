@@ -5,6 +5,7 @@ class Account:
         self.number_acc = data.get('number')
         self.agency = data.get('agency')
         self.client = data.get('client')
+        self.password = data.get('password')
   
 
     def to_dict(self):
@@ -13,9 +14,12 @@ class Account:
             "number_account" : self.number_acc,
             "agency" : self.agency,
             "statement" : self.statement,
+            "password" : self.password,
         }
 
 
     def __str__(self) -> str:
             return f"{self.number_account} - {self.agency} - {self.statement} - {self.client}"
   
+    def __get_password__(self) -> str:
+            return f'{self.password}'

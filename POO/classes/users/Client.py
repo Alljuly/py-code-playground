@@ -1,6 +1,5 @@
 import Person
 from ..accounts.CheckingAccount import CheckingAccount
-from ..transactions.Transaction import Deposit, WithDraw
 
 class Client(Person):
 
@@ -12,8 +11,10 @@ class Client(Person):
     def create_account(self, data):
         CheckingAccount(data)
 
+
     def __str__(self) -> str:
         return f"{super().name} - {super().cpf}"
+
 
     def to_dict(self):
         return {
