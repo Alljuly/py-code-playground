@@ -54,6 +54,11 @@ class CheckingAccount(Account):
         date = dt.today()
         balance = {"value": value, "date": date, "type": type}
         return balance
+    
+
+    def get_statement(self) -> str:
+        statement = super().get_statement()
+        return statement
 
 
     def limit_max(self, value) -> bool:

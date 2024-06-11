@@ -2,17 +2,5 @@
     {
         "name": "Teste",
         "cpf": "0"
-    },
-    {
-        "name": "Alice",
-        "cpf": "715"
-    },
-    {
-        "name": "teste2",
-        "cpf": "654"
-    },
-    {
-        "name": "teste saques",
-        "cpf": "456"
     }
 ]

@@ -18,6 +18,10 @@ class Account:
         }
 
 
+    def get_statement(self) -> str:
+            return f"{self.statement:.2}"
+  
+
     def __str__(self) -> str:
             return f"{self.number_account} - {self.agency} - {self.statement} - {self.client}"
   

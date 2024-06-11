@@ -41,7 +41,7 @@ def convert_json_to_account(obj: Dict[str]) -> CheckingAccount:
     return account
 
 
-def new_transaction(current_account):
+def new_transaction(current_account : CheckingAccount):
     value = float(input("Insira uma valor: "))
     balance = current_account.new_transaction(type, value)
     write_json(transactions_path, balance)
@@ -58,6 +58,11 @@ def get_balance(current_id):
                 print("Nenhuma transacao encontrada")
             return
     print("Algo deu errado, tente novamente em alguns minutos")
+
+
+def get_statement(current_account : CheckingAccount):
+    statement = current_account.get_statement()
+    return statement
 
 
 def user_exist(current_cpf):
@@ -97,7 +102,7 @@ def create_user():
 
     print("Usuario Cadastrado.")
 
-
+####
 def create_account(current_id):
     data = {
         "client" : current_id,
@@ -135,8 +140,8 @@ def user_login(current_id, current_password):
                 return None
     print("Usuario nao encontrado")
 
-#Deve receber a conta tambem
-def actions_menu(current_account):
+
+def actions_menu(current_account: CheckingAccount):
     while True:
         """print("\n=== Menu ===")
         print("1. Verificar Extrato")
