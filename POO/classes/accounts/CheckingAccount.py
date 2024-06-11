@@ -1,6 +1,5 @@
 from transactions import WithDraw, Deposit 
-from .. import Account 
-
+from . import Account 
 
 class CheckingAccount(Account):
     def __init__(self, limit, wd_limit, account):
@@ -21,6 +20,15 @@ class CheckingAccount(Account):
         current_account_statement = super().statement
 
         deposit.register(current_account_statement)
+
+
+    def new_transaction(self, type_transaction, value):
+           if type_transaction == "wd":
+               transaction = WithDraw(value)
+               transaction.register(self)
+           elif type_transaction == "deposit":
+               transaction = Deposit(value)
+               transaction.register(self)
 
     
     def limit_wd(self, balance, date):

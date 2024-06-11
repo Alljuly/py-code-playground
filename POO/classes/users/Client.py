@@ -1,16 +1,22 @@
 import Person
+from ..accounts.CheckingAccount import CheckingAccount
+from ..transactions.Transaction import Deposit, WithDraw
 
 class Client(Person):
 
-    def __init__(self, name, cpf, date):
+    def __init__(self, name, cpf, date, address):
         super().__init__(name, cpf, date)
+        self.address = address
 
+            
+    def create_account(self, data):
+        CheckingAccount(data)
 
-    """def new_transaction(self, type_transaction, value):
-        transaction = Transaction(type_transaction)
-        transaction.register(value)"""
+    def __str__(self) -> str:
+        return f"{super().name} - {super().cpf}"
 
-
-    """def create_account(self, data):
-        new_account = Account(data)
-    """
+    def to_dict(self):
+        return {
+            "name": super().name,
+            "cpf": super().cpf,
+        }

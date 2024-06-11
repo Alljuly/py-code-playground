@@ -1,7 +1,7 @@
 import json
 import os
-from classes.User import User
-from classes.Account import Account
+from classes.users import Client
+from classes.accounts.Account import Account
 from datetime import date as dt
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -114,7 +114,7 @@ def create_user():
         print("Esse CPF já esta cadastrado, entre na sua conta ou procure uma agencia.")
         return
     
-    new_user = User(new_username, new_cpf, new_password)
+    new_user = Client(new_username, new_cpf, new_password)
     users_list.append(new_user.to_dict())
 
     create_account(new_cpf)

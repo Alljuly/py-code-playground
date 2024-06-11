@@ -15,11 +15,7 @@ class Account:
             "statement" : self.statement,
         }
 
-   
 
-#Novo __str__
-  
     def __str__(self) -> str:
             return f"{self.number_account} - {self.agency} - {self.statement} - {self.client}"
   
-

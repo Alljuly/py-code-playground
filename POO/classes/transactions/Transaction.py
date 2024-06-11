@@ -18,6 +18,3 @@ class WithDraw(ITransaction):
 
     def register(self, account):
         account.statement -= self.value
-
-
-
