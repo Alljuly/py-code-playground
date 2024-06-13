@@ -16,7 +16,7 @@ def write_json(path, json_list):
 
 
 def rewrite_json(path, json_list):
-    with open(path, 'a') as f:
+    with open(path, 'w') as f:
         json.dump(json_list, f, indent=4)
 
 
