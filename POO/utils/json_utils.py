@@ -11,7 +11,12 @@ def read_json(path):
 
 
 def write_json(path, json_list):
-    with open(path, 'w') as f:
+    with open(path, 'a') as f:
+        json.dump(json_list, f, indent=4)
+
+
+def rewrite_json(path, json_list):
+    with open(path, 'a') as f:
         json.dump(json_list, f, indent=4)
 
 
