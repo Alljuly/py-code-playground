@@ -64,3 +64,14 @@ class CheckingAccount(Account):
     def limit_max(self, value) -> bool:
        return False if value > self.limit else True
     
+
+    def to_dict(self):
+        return {
+            "client": self.client,
+            "number_account": self.number_acc,
+            "agency": self.agency,
+            "statement": self.statement,
+            "password": self.password,
+            "limit": self.limit,
+            "wd_limit": self.wd_limit
+        }

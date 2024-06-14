@@ -1,5 +1,5 @@
-from json_utils import *
-from ..classes.accounts.CheckingAccount import CheckingAccount
+from .json_utils import *
+from classes.accounts.CheckingAccount import CheckingAccount
 from typing import Union
 
 def convert_json_to_account(obj) -> CheckingAccount:
@@ -12,13 +12,13 @@ def convert_json_to_account(obj) -> CheckingAccount:
     }
 
     limit = obj["limit"]
-    wd_limit = obj["limit_wd"]
+    wd_limit = obj["wd_limit"]
 
     account = CheckingAccount(limit, wd_limit, data)
     return account
 
 
-def new_transaction(current_account: CheckingAccount):
+def new_transaction(current_account: CheckingAccount, type):
     value = float(input("Insira uma valor: "))
     balance = current_account.new_transaction(type, value)
     write_json(transactions_path, balance)
@@ -26,7 +26,7 @@ def new_transaction(current_account: CheckingAccount):
 
 def get_balance(current_id):
     for b in transactions_list:
-        if b["client"] == current_id:
+        if b["client"] == current_id["client"]:
             print("ACCOUNT STATEMENT")
             if b["balance"]:
                 print(b["balance"])
@@ -36,19 +36,19 @@ def get_balance(current_id):
     print("Algo deu errado, tente novamente em alguns minutos")
 
 
-def get_statement(current_account: CheckingAccount):
+def get_statement(current_account: CheckingAccount) -> float:
     statement = current_account.get_statement()
-    return statement
+    return float(statement)
 
 
 def account_exist(current_cpf)-> Union[CheckingAccount, None]:
     for a in account_list:
-        if a["cpf"] == current_cpf:
+        if a["client"] == current_cpf:
             ac = convert_json_to_account(a)
             return ac
     return None
 
-
+###
 def create_account(current_id):
     data = {
         "client": current_id,
@@ -66,10 +66,11 @@ def create_account(current_id):
     print(f"Limite de saques por dia {limit_wd} no valor de R${limit:.2f}")
 
     new_account = CheckingAccount(limit, limit_wd, data)
-    # Fzr um if pro cliente confirmar depois
-
-    account_list.append(new_account)
+   
+    account_list = read_json(account_path)
+    account_list.append(new_account.to_dict())
     write_json(account_path, account_list)
     print("Conta finalizada com sucesso.")
+    # Fzr um if pro cliente confirmar depois
 
     return

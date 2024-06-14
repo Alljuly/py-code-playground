@@ -1,7 +1,13 @@
 [
     {
         "name": "Teste",
-        "cpf": "0"
+        "cpf": "0",
+        "address": "endereco"
+    },
+    {
+        "name": "Teste",
+        "cpf": "123456789123",
+        "date": "27-05-1997",
+        "address": "1313 E Main St, Portage MI 49024-2001"
     }
 ]
-

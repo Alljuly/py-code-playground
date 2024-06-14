@@ -1,9 +1,20 @@
 [
     {
-        "client" : "26541",
-        "number_account" : 26265,
-        "agency" : 3265,
-        "statement" : 10,
-        "password" : 12345
+        "client": "12345",
+        "number_account": null,
+        "agency": 3265,
+        "statement": 10,
+        "password": 12345,
+        "limit": 500,
+        "wd_limit": 3
+    },
+    {
+        "client": "123456789123",
+        "number_account": null,
+        "agency": 3265,
+        "statement": 10,
+        "password": 12345,
+        "limit": 500,
+        "wd_limit": 3
     }
 ]

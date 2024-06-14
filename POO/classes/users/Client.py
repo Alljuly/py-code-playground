@@ -12,13 +12,20 @@ class Client(Person):
     def create_account(self, data):
         CheckingAccount(data)
 
-
+    
     def __str__(self) -> str:
-        return f"{super().name} - {super().cpf}"
+        return f"{self.name} - {self.cpf}"
 
 
     def to_dict(self):
         return {
-            "name": super().name,
-            "cpf": super().cpf,
+            "name": self.name,
+            "cpf": self.cpf,
+            "date": self.date,
+            "address": self.address
         }
+
+    
+    def __str__(self):
+        return super().name
+

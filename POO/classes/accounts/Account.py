@@ -18,8 +18,8 @@ class Account:
         }
 
 
-    def get_statement(self) -> str:
-            return f"{self.statement:.2}"
+    def get_statement(self) -> float:
+            return self.statement
   
 
     def __str__(self) -> str:
