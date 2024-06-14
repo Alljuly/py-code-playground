@@ -31,7 +31,7 @@ class CheckingAccount(Account):
 
     def limit_wd(self, balance) -> bool:
         count = 0
-        date = dt.today()
+        date = dt.today().strftime('%Y-%m-%d')
         for t in balance:
             if t["client"] == self.client and t["type"] == "wd":
                 if t["date"] == date:
@@ -42,7 +42,7 @@ class CheckingAccount(Account):
     
 
     def set_balance(self, type, value):
-        date = dt.today().strftime('%Y-%m-%dT%H:%M:%S')
+        date = dt.today().strftime('%Y-%m-%d')
         balance = {"value": value, "date": date, "type": type}
         return balance
     
@@ -50,10 +50,6 @@ class CheckingAccount(Account):
     def get_statement(self) -> str:
         statement = super().get_statement()
         return statement
-
-
-    def limit_max(self, value) -> bool:
-       return False if value > self.limit else True
     
 
     def to_dict(self):
