@@ -1,7 +1,7 @@
 
 from classes.accounts.CheckingAccount import CheckingAccount
 from utils.user_utils import create_user, user_login
-from utils.account_utils import new_transaction, get_balance, get_statement, account_exist
+from utils.account_utils import new_transaction, set_statement, get_balance, get_statement, account_exist
 
 
 def actions_menu(current_account: CheckingAccount):
@@ -21,9 +21,11 @@ def actions_menu(current_account: CheckingAccount):
         elif action == 2:
             type = "wd" 
             new_statement = new_transaction(current_account, type)
+            set_statement(new_statement)
         elif action == 3:
             type = "deposit"
             new_statement = new_transaction(current_account, type)
+            set_statement(new_statement)
         elif action == 4:
             msg = get_statement(current_account)
             print(f'{msg:.2f}')

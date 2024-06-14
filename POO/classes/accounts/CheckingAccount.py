@@ -27,13 +27,14 @@ class CheckingAccount(Account):
 
 
     def new_transaction(self, type_transaction, value):
+        transaction = None
         if type_transaction == "wd":
                transaction = WithDraw(value)
                transaction.register(self)
         elif type_transaction == "deposit":
                transaction = Deposit(value)
                transaction.register(self)
-
+        transaction = transaction.to_dict(self)
         current_balance = self.set_balance(type_transaction, value)
         return [current_balance, transaction]
     

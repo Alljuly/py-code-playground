@@ -12,7 +12,7 @@
         "client": "123456789123",
         "number_account": null,
         "agency": 3265,
-        "statement": 10,
+        "statement": -10.0,
         "password": 12345,
         "limit": 500,
         "wd_limit": 3

@@ -9,6 +9,10 @@ class Deposit(ITransaction):
     def register(self, account):
         account.statement += self.value
         return account.statement
+    
+
+    def to_dict(self, account):
+        return account.statement
 
 
 class WithDraw(ITransaction):
@@ -19,3 +23,7 @@ class WithDraw(ITransaction):
 
     def register(self, account):
         account.statement -= self.value
+
+    
+    def to_dict(self, account):
+        return account.statement
