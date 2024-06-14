@@ -18,12 +18,14 @@ def convert_json_to_account(obj) -> CheckingAccount:
     return account
 
 
-def new_transaction(current_account: CheckingAccount, type):
+def new_transaction(current_account: CheckingAccount, type) -> CheckingAccount:
     value = float(input("Insira uma valor: "))
     balance = current_account.new_transaction(type, value)
     transactions_list  = read_json(transactions_path)
-    transactions_list.append(balance)
+    transactions_list.append(balance[0])
     write_json(transactions_path, transactions_list)
+    current_account.statement = balance[1]
+    return current_account
 
 
 def get_balance(client):

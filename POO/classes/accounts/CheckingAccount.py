@@ -35,7 +35,7 @@ class CheckingAccount(Account):
                transaction.register(self)
 
         current_balance = self.set_balance(type_transaction, value)
-        return current_balance
+        return [current_balance, transaction]
     
     
     def limit_wd(self, balance) -> bool:

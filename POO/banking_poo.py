@@ -20,10 +20,10 @@ def actions_menu(current_account: CheckingAccount):
             get_balance(client)
         elif action == 2:
             type = "wd" 
-            new_transaction(current_account, type)
+            new_statement = new_transaction(current_account, type)
         elif action == 3:
             type = "deposit"
-            new_transaction(current_account, type)
+            new_statement = new_transaction(current_account, type)
         elif action == 4:
             msg = get_statement(current_account)
             print(f'{msg:.2f}')
