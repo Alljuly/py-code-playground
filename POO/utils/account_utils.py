@@ -21,19 +21,24 @@ def convert_json_to_account(obj) -> CheckingAccount:
 def new_transaction(current_account: CheckingAccount, type):
     value = float(input("Insira uma valor: "))
     balance = current_account.new_transaction(type, value)
-    write_json(transactions_path, balance)
+    transactions_list  = read_json(transactions_path)
+    transactions_list.append(balance)
+    write_json(transactions_path, transactions_list)
 
 
-def get_balance(current_id):
-    for b in transactions_list:
-        if b["client"] == current_id["client"]:
-            print("ACCOUNT STATEMENT")
-            if b["balance"]:
-                print(b["balance"])
-            else:
-                print("Nenhuma transacao encontrada")
-            return
-    print("Algo deu errado, tente novamente em alguns minutos")
+def get_balance(client):
+    transactions_found = False
+    print("ACCOUNT STATEMENT")
+    print("-" * 50)
+    print(f"{'Value':<10} {'Date':<20} {'Type':<10}")
+    print("-" * 50)
+    for balance in transactions_list:
+        if balance["client"] == client:
+            transactions_found = True
+            print(f"{balance['value']:<10} {balance['date']:<20} {balance['type']:<10}")
+    if not transactions_found:
+        print("Nenhuma transacao encontrada")
+    
 
 
 def get_statement(current_account: CheckingAccount) -> float:

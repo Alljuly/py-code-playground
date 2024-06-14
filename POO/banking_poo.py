@@ -16,7 +16,8 @@ def actions_menu(current_account: CheckingAccount):
         action = int(input())
 
         if action == 1:
-            get_balance(current_account)
+            client = current_account.client
+            get_balance(client)
         elif action == 2:
             type = "wd" 
             new_transaction(current_account, type)

@@ -34,7 +34,7 @@ class CheckingAccount(Account):
                transaction = Deposit(value)
                transaction.register(self)
 
-        current_balance = self.balance(type_transaction, value)
+        current_balance = self.set_balance(type_transaction, value)
         return current_balance
     
     
@@ -51,7 +51,7 @@ class CheckingAccount(Account):
     
 
     def set_balance(self, type, value):
-        date = dt.today()
+        date = dt.today().strftime('%Y-%m-%dT%H:%M:%S')
         balance = {"value": value, "date": date, "type": type}
         return balance
     
