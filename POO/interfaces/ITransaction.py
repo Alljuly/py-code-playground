@@ -10,3 +10,7 @@ class ITransaction(ABC):
     @abstractmethod
     def register(account):
         pass
+
+    @abstractmethod
+    def to_dict():
+        pass

@@ -28,6 +28,19 @@ def new_transaction(current_account: CheckingAccount, type) -> CheckingAccount:
     return current_account
 
 
+def set_statement(current_account: CheckingAccount):
+    account_list = read_json(account_path)
+    value = current_account.statement
+    client  = current_account.client
+
+    for ac in account_list:
+        if ac["client"] == client:
+            ac["statement"] = value
+            break
+
+    write_json(account_path, account_list)
+
+
 def get_balance(client):
     transactions_found = False
     print("ACCOUNT STATEMENT")
