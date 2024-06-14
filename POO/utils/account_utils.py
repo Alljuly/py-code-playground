@@ -19,13 +19,17 @@ def convert_json_to_account(obj) -> CheckingAccount:
 
 
 def new_transaction(current_account: CheckingAccount, type) -> CheckingAccount:
-    value = float(input("Insira uma valor: "))
-    balance = current_account.new_transaction(type, value)
     transactions_list  = read_json(transactions_path)
-    transactions_list.append(balance[0])
-    write_json(transactions_path, transactions_list)
-    current_account.statement = balance[1]
-    return current_account
+    
+    if current_account.limit_wd(transactions_list) and current_account.limit_value(value):
+        value = float(input("Insira uma valor: "))
+        balance = current_account.new_transaction(type, value)
+        transactions_list.append(balance[0])
+        write_json(transactions_path, transactions_list)
+        current_account.statement = balance[1]
+        return current_account
+    else:
+        print("Verifique seu saldo e limite diario de transacoes ou tente novamente mais tarde")
 
 
 def set_statement(current_account: CheckingAccount):
