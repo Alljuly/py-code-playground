@@ -9,5 +9,11 @@
         "cpf": "123456789123",
         "date": "27-05-1997",
         "address": "1313 E Main St, Portage MI 49024-2001"
+    },
+    {
+        "name": "Alice",
+        "cpf": "321",
+        "date": "01-02-2003",
+        "address": "Rua A, Bairro B"
     }
 ]

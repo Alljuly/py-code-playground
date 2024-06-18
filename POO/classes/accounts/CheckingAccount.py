@@ -17,8 +17,9 @@ class CheckingAccount(Account):
     def new_transaction(self, type_transaction, value:float):
 
         if type_transaction == "wd":
-            transaction = WithDraw(value)
-            transaction.register(self)
+            if self.statement >= value:
+                transaction = WithDraw(value)
+                transaction.register(self)
         elif type_transaction == "deposit":
             transaction = Deposit(value)
             transaction.register(self)
@@ -43,7 +44,7 @@ class CheckingAccount(Account):
 
     def set_balance(self, type, value):
         date = dt.today().strftime('%Y-%m-%d')
-        balance = {"value": value, "date": date, "type": type}
+        balance = {"value": value, "date": date, "type": type, "client": self.client}
         return balance
     
 
