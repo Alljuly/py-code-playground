@@ -1,4 +1,5 @@
 from .json_utils import *
+
 from classes.accounts.CheckingAccount import CheckingAccount
 from typing import Union
 
@@ -19,13 +20,18 @@ def convert_json_to_account(obj) -> CheckingAccount:
 
 
 def new_transaction(current_account: CheckingAccount, type) -> CheckingAccount:
-    value = float(input("Insira uma valor: "))
-    balance = current_account.new_transaction(type, value)
     transactions_list  = read_json(transactions_path)
-    transactions_list.append(balance[0])
-    write_json(transactions_path, transactions_list)
-    current_account.statement = balance[1]
-    return current_account
+    value = float(input("Insira uma valor: "))
+
+    if current_account.limit_wd(transactions_list) and current_account.limit_value(value) and value > 0:    
+        balance = current_account.new_transaction(type, value)
+        transactions_list.append(balance[0])
+        write_json(transactions_path, transactions_list)
+        current_account.statement = balance[1]
+        return current_account
+    else:
+        print("Verifique seu saldo e limite diario de transacoes ou tente novamente mais tarde")
+        return None
 
 
 def set_statement(current_account: CheckingAccount):
@@ -70,12 +76,13 @@ def account_exist(current_cpf)-> Union[CheckingAccount, None]:
 
 ###
 def create_account(current_id):
+    password = int(input("Informe sua senha"))
     data = {
         "client": current_id,
         "number_account": 26265,
         "agency": 3265,
         "statement": 10,
-        "password": 12345,
+        "password": password,
     }
 
     limit = 500
@@ -87,7 +94,7 @@ def create_account(current_id):
 
     new_account = CheckingAccount(limit, limit_wd, data)
    
-    account_list = read_json(account_path)
+    
     account_list.append(new_account.to_dict())
     write_json(account_path, account_list)
     print("Conta finalizada com sucesso.")

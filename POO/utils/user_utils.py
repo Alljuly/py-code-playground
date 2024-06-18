@@ -6,10 +6,10 @@ from .json_utils import *
 
 def create_user():
     print(" ==== Informe seus dados pessoais ====")
-    new_name = "Teste"
-    new_cpf = "123456789123"
-    new_date = "27-05-1997"
-    new_address = "1313 E Main St, Portage MI 49024-2001"
+    new_name = input("Seu nome:")
+    new_cpf = input("Seu CPF:")
+    new_date = input("Informe sua data de nascimento no formato: 01-02-2003")
+    new_address = input("Informe seu endereço")
 
     if user_exist(new_cpf):
         print("Esse CPF já esta cadastrado, entre na sua conta ou procure uma agencia.")
@@ -43,5 +43,4 @@ def user_login(current_id: str, current_password: int):
                 else:
                     print("As credenciais não conferem")
                     return None
-    else: 
-        print("Usuario nao encontrado")
+    print("Usuario nao encontrado")    

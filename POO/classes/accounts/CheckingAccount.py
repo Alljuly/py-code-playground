@@ -10,40 +10,31 @@ class CheckingAccount(Account):
         self.wd_limit = wd_limit
     
 
-    def withdraw(self, value) -> float:
-        wd = WithDraw(value)
-        current_account_statement = super().statement
-
-        statement = wd.register(current_account_statement)
-        return statement
+    def limit_value(self, value) -> bool:
+        return value < self.statement and value < self.limit
 
 
-    def deposit(self, value) -> float:
-        deposit = Deposit(value)
-        current_account_statement = super().statement
+    def new_transaction(self, type_transaction, value:float):
 
-        statement = deposit.register(current_account_statement)
-        return statement
-
-
-    def new_transaction(self, type_transaction, value):
-        transaction = None
         if type_transaction == "wd":
-               transaction = WithDraw(value)
-               transaction.register(self)
+            if self.statement >= value:
+                transaction = WithDraw(value)
+                transaction.register(self)
         elif type_transaction == "deposit":
-               transaction = Deposit(value)
-               transaction.register(self)
-        transaction = transaction.to_dict(self)
+            transaction = Deposit(value)
+            transaction.register(self)
+           
+        transaction_dict = transaction.to_dict(self)
         current_balance = self.set_balance(type_transaction, value)
-        return [current_balance, transaction]
-    
-    
+        return [current_balance, transaction_dict]
+
+     
+
     def limit_wd(self, balance) -> bool:
         count = 0
-        date = dt.today()
+        date = dt.today().strftime('%Y-%m-%d')
         for t in balance:
-            if t["type"] == "wd":
+            if t["client"] == self.client and t["type"] == "wd":
                 if t["date"] == date:
                     count += 1
                 if count == self.wd_limit:
@@ -52,18 +43,14 @@ class CheckingAccount(Account):
     
 
     def set_balance(self, type, value):
-        date = dt.today().strftime('%Y-%m-%dT%H:%M:%S')
-        balance = {"value": value, "date": date, "type": type}
+        date = dt.today().strftime('%Y-%m-%d')
+        balance = {"value": value, "date": date, "type": type, "client": self.client}
         return balance
     
 
     def get_statement(self) -> str:
         statement = super().get_statement()
         return statement
-
-
-    def limit_max(self, value) -> bool:
-       return False if value > self.limit else True
     
 
     def to_dict(self):
